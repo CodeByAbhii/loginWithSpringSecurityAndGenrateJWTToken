@@ -40,7 +40,7 @@ public class UserService {
         user.setPassword(BCrypt.hashpw(dto.getPassword() ,BCrypt.gensalt(10)) );
 
         user.setUserRole(dto.getUserRole());
-        propertyUserRepository.save(user);
+       propertyUserRepository.save(user);
         return user;
 
     }

@@ -8,6 +8,7 @@ import com.security.payload.LoginDto;
 import com.security.payload.PropertyUserDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,6 +64,12 @@ public class UserController {
             return new ResponseEntity<>(jwtResponse , HttpStatus.OK);
         }
         return new ResponseEntity<>("Invalid Credentials" , HttpStatus.UNAUTHORIZED);
+    }
+
+    // http://localhost:8080/api/v1/users/profile
+    @PostMapping("/profile")
+    public PropertyUser getCurrentProfile(@AuthenticationPrincipal PropertyUser propertyUser){
+        return propertyUser;
     }
 
 

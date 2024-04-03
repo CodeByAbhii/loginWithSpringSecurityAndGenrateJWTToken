@@ -1,5 +1,6 @@
 package com.security.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -22,9 +23,11 @@ public class PropertyUser {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @JsonIgnore
     @Column(name = "user_role", nullable = false, length = 40)
     private String userRole;
 
+    @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
 
