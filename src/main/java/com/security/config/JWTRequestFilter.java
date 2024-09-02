@@ -49,7 +49,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
             Optional<PropertyUser> opUser = propertyUserRepository.findByUsername(username);
             if(opUser.isPresent()){
                 PropertyUser user = opUser.get();
-                // for server to understand who is thw current user
+                // for server to understand who is the current user
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user , null , Collections.singletonList(new SimpleGrantedAuthority(user.getUserRole())));
                authentication.setDetails(new WebAuthenticationDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);

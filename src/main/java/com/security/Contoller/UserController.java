@@ -9,10 +9,9 @@ import com.security.payload.PropertyUserDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -67,10 +66,17 @@ public class UserController {
     }
 
     // http://localhost:8080/api/v1/users/profile
-    @PostMapping("/profile")
-    public PropertyUser getCurrentProfile(@AuthenticationPrincipal PropertyUser propertyUser){
-        return propertyUser;
+    @GetMapping("/profile")
+    public ResponseEntity<List<PropertyUser>> getCurrentProfile(@AuthenticationPrincipal PropertyUser propertyUser){
+        List<PropertyUser> profile = userService.getProfile(propertyUser);
+        return  new ResponseEntity<>(profile , HttpStatus.OK);
     }
 
+    // http://localhost:8080/api/v1/users/profile/{id}
+    @GetMapping("profile/{id}")
+    public  ResponseEntity<PropertyUser> getCurrentUserDetails(@PathVariable Long id){
+       PropertyUser  propertyUser1=  userService.getCurrentUserDetails(id);
+       return  new ResponseEntity<>(propertyUser1 , HttpStatus.OK);
+    }
 
 }
